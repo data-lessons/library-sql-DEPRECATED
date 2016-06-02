@@ -75,36 +75,24 @@ If we want to write a query, we click on the Execute SQL tab.
 
 ## Dataset Description
 
-The data we will be using is a time-series for a small mammal community in
-southern Arizona. This is part of a project studying the effects of rodents and
-ants on the plant community that has been running for almost 40 years.  The
-rodents are sampled on a series of 24 plots, with different experimental
-manipulations controlling which rodents are allowed to access which plots.
-
-This is a real dataset that has been used in over 100 publications. We've
-simplified it just a little bit for the workshop, but you can download the
-[full dataset](http://esapubs.org/archive/ecol/E090/118/) and work with it using
-exactly the same tools we'll learn about today.
-
+The data we will be using is a catalogue of journal articles from 51 different
+journals published during 2015. Articles are published in different languages,
+by different publishers and under different licences.
 
 ## Import
 
-1. Download the three CSV files from the [Portal Database](http://figshare.com/articles/Portal_Project_Teaching_Database/1314459)
+1. Download the CSV files from [Figshare](https://dx.doi.org/10.6084/m9.figshare.3409471.v1)
 1. Start a New Database **Database -> New Database**
 2. Start the import **Database -> Import**
 3. Select the file to import
-4. Give the table a name that matches the file name (surveys, species, plots), or use the default
+4. Give the table a name that matches the file name (articles, journals,
+  licences, languages  publishers), or use the default
 5. If the first row has column headings, check the appropriate box
 6. Make sure the delimiter and quotation options are appropriate for the CSV files.  Ensure 'Ignore trailing Separator/Delimiter' is left *unchecked*.
 7. Press **OK**
 8. When asked if you want to modify the table, click **OK**
 9. Set the data types for each field: choose TEXT for fields with text
-   (`species_id`, `genus`, `sex`, etc.) and INT for fields with numbers (`day`,
-   `month`, `year`, `weight`, etc.)
-
-> ### Challenge
->
-> Import the plots and species tables
+   (e.g. `Title`, `Authors`, `DOI`, etc.) and INT for fields with numbers (none in our case)
 
 You can also use this same approach to append new data to an existing table.
 
