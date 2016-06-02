@@ -9,7 +9,7 @@ minutes: 60
 
 _Note: this should have been done by participants before the start of the workshop._
 
-1. Install Firefox
+1. Install [Firefox](https://www.mozilla.org/en-US/firefox/new/)
 2. Install the SQLite Manager add on: **Menu (the three horizontal lines near the
 top right corner of Firefox) -> Add-ons -> Search -> SQLite
 Manager -> Install -> Restart now**
@@ -17,26 +17,29 @@ Manager -> Install -> Restart now**
    Manager icon to one of the empty menu squares on the right, Exit Customize**
 5. Open SQLite Manager: **Menu -> SQLite Manager**
 
+## What is SQL?
+
+SQL (Structured Query Language) is a powerful language used to interrogate and manipulate relational databases.
+It is highly specialised. It is not a general programming language that you can use to write an entire program.
+However, SQL queries can be embedded in other programming languages to let any program work with databases.
+There are several different kinds of SQL, but all support the same basic statements that we will be covering today.
 
 ## Relational databases
 
-* Relational databases store data in tables with fields (columns) and records
-  (rows)
-* Data in tables has types, and all values in a field have
-  the same type ([list of data types](#datatypes))
-* Queries let us look up data or make calculations based on columns
+Relational databases consist of one or more tables of data. These tables have _fields_ (columns) and _records_ (rows).
+Every field has a data _type_. Every value in the same field of each record has the same _type_. These tables can be
+linked to each when a field in one table can be matched to a field in another table. SQL _queries_ are the commands
+that let you look up data in a database or make calculations based on columns.
 
+## Why use SQL
 
-## Why use relational databases
+Using SQL lets you keep the data separate from the analysis. There is no risk of accidentally changing data when
+you are analysing it. If the data is changed, a saved query can be re-run to analyse the new data.
 
-* Data separate from analysis.
-    * No risk of accidentally changing data when analyzing it
-    * If we change the data we can just rerun the query
-* Fast for large amounts of data
-* Improve quality control of data entry (type constraints and use of forms in
-  Access, Filemaker, etc.)
-* The concepts of relational database querying are core to understanding how to do similar things using programming languages such as R or Python.
-
+SQL is optimised for handling large amounts of data. Using data types helps with quality control of entries - you
+will receive an error if you try to enter a word into a field that should contain a number. Understanding the nature
+of relational databases, and using SQL, will help you in using databases in programming languages.
+to do similar things using programming languages such as R or Python.
 
 ## Database Management Systems
 
