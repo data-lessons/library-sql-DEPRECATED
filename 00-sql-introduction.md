@@ -81,7 +81,7 @@ by different publishers and under different licences.
 
 ## Import
 
-1. Download the CSV files from [Figshare](https://dx.doi.org/10.6084/m9.figshare.3409471.v1)
+1. Download the CSV files from [Figshare](https://dx.doi.org/10.6084/m9.figshare.3409471)
 1. Start a New Database **Database -> New Database**
 2. Start the import **Database -> Import**
 3. Select the file to import
