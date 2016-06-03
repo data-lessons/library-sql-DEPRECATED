@@ -86,7 +86,7 @@ by different publishers and under different licences.
 
 ## Import
 
-1. Download the CSV files from [Figshare](https://dx.doi.org/10.6084/m9.figshare.3409471.v1)
+1. Download the CSV files from [Figshare](https://dx.doi.org/10.6084/m9.figshare.3409471)
 1. Start a New Database **Database -> New Database**
 2. Start the import **Database -> Import**
 3. Select the file to import
@@ -97,7 +97,8 @@ by different publishers and under different licences.
 7. Press **OK**
 8. When asked if you want to modify the table, click **OK**
 9. Set the data types for each field: choose TEXT for fields with text
-   (e.g. `Title`, `Authors`, `DOI`, etc.) and INT for fields with numbers (none in our case)
+   (e.g. `Title`, `Authors`, `DOI`, etc.) and INT for fields with numbers
+   (e.g. `Citation_Count`, `Author_Count`, `Day`, etc.)
 
 You can also use this same approach to append new data to an existing table.
 

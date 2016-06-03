@@ -42,8 +42,30 @@ journals included in the collection, we use `DISTINCT`
 If we select more than one column, then the distinct pairs of values are
 returned
 
-    SELECT DISTINCT issns, date
-    FROM surveys;
+    SELECT DISTINCT issns, day, month, year
+    FROM articles;
+
+### Calculated values
+
+We can also do calculations with the values in a query.
+For example, if we wanted to look at the relative popularity of an article,
+so we divide by 10 (because we know the most popular article has 10 citations).
+
+    SELECT first_author, citation_count/10.0
+    FROM articles;
+
+When we run the query, the expression `citation_count / 10.0` is evaluated for each
+row and appended to that row, in a new column.  Expressions can use any fields,
+any arithmetic operators (`+`, `-`, `*`, and `/`) and a variety of built-in
+functions. For example, we could round the values to make them easier to read.
+
+    SELECT first_author, title, ROUND(author_count/16.0, 2)
+    FROM articles;
+
+> ## Challenge
+>
+> Write a query that returns the title, first_author, citation_count,
+> author_count, month and year
 
 ## Filtering
 
@@ -59,11 +81,11 @@ which has a ISSN code 2067-2764|2247-6202.  We need to add a
 
 We can use more sophisticated conditions by combining tests with `AND`
 and `OR`.  For example, suppose we want the data on *Theory and Applications of Mathematics & Computer Science*
-published in November 2015 :
+published after June:
 
     SELECT *
     FROM articles
-    WHERE (issns='2067-2764|2247-6202') AND (date = '01/11/2015');
+    WHERE (issns='2067-2764|2247-6202') AND (month > 06);
 
 Note that the parentheses are not needed, but again, they help with
 readability.  They also ensure that the computer combines `AND` and `OR`
@@ -78,7 +100,39 @@ ISSNs codes `2076-0787` and `2077-1444`, we could combine the tests using OR:
 
 > ### Challenge
 >
-> What would be a good challenge to set at this point?
+> Write a query that returns the title, first_author, issns, month and year
+> for all single author papers with more than 4 citations
+
+
+## Building more complex queries
+
+Now, lets combine the above queries to get data for the 3 journals from
+June on.  This time, let’s use IN as one way to make the query easier
+to understand.  It is equivalent to saying `WHERE (issns = '2076-0787') OR (issns
+= '2077-1444') OR (issns = '2067-2764|2247-6202')`, but reads more neatly:
+
+    SELECT *
+    FROM articles
+    WHERE (month > 06) AND (issns IN ('2076-0787', '2077-1444', '2067-2764|2247-6202'));
+
+We started with something simple, then added more clauses one by one, testing
+their effects as we went along.  For complex queries, this is a good strategy,
+to make sure you are getting what you want.  Sometimes it might help to take a
+subset of the data that you can easily see in a temporary database to practice
+your queries on before working on a larger or more complicated database.
+
+When the queries become more complex, it can be useful to add comments. In SQL,
+comments are started by `--`, and end at the end of the line. For example, a
+commented version of the above query can be written as:
+
+    -- Get post June data on selected journals
+    -- These are in the articles table, and we are interested in all columns
+    SELECT * FROM articles
+    -- Sampling month is in the column `month`, and we want to include
+    -- everything after June
+    WHERE (month > 06)
+    -- selected journals have the `issns` 2076-0787, 2077-1444, 2067-2764|2247-6202
+    AND (issns IN ('2076-0787', '2077-1444', '2067-2764|2247-6202'));
 
 Although SQL queries often read like plain English, it is *always* useful to add
 comments; this is especially true of more complex queries.
@@ -97,7 +151,7 @@ We could alternately use `DESC` to get descending order.
 
     SELECT *
     FROM articles
-    ORDER BY authors DESC;
+    ORDER BY first_author DESC;
 
 `ASC` is the default.
 
@@ -106,11 +160,13 @@ To truly be alphabetical, we might want to order by genus then species.
 
     SELECT *
     FROM articles
-    ORDER BY issns DESC, authors ASC;
+    ORDER BY issns DESC, first_author ASC;
 
 > ### Challenge
 >
-> Think of nice challenges
+> Write a query that returns title, first_author, issns and citation_count from
+> the articles table, sorted with the most cited article at the top and
+> alphabetically
 
 
 ## Order of execution
@@ -122,7 +178,7 @@ we only want to see Authors and Titles.
     SELECT authors, title
     FROM articles
     WHERE issns = '2067-2764|2247-6202'
-    ORDER BY date ASC, authors ASC;
+    ORDER BY date ASC, first_author ASC;
 
 We can do this because sorting occurs earlier in the computational pipeline than
 field selection.
@@ -140,6 +196,9 @@ we recommend to put each clause on its own line.
 > ### Challenge
 >
 > Let's try to combine what we've learned so far in a single
-> query.  Write a nice challenge!
+> query.  Using the articles table write a query to display the three date fields,
+> `issn`, and `citation_count`, for articles published after June, ordered
+> alphabetically by first author name. Write the query as a single line, then
+> put each clause on its own line, and see how more legible the query becomes!
 
 Previous: [SQL Introduction](00-sql-introduction.html) Next: [SQL Aggregation.](02-sql-aggregation.html)

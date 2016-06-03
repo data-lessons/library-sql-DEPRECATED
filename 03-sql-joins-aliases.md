@@ -12,38 +12,37 @@ the `FROM` command.
 
 We also need to tell the computer which columns provide the link between the two
 tables using the word `ON`.  What we want is to join the data with the same
-species codes.
+journal name.
 
     SELECT *
-    FROM surveys
-    JOIN species
-    ON surveys.species_id = species.species_id;
+    FROM articles
+    JOIN journals
+    ON articles.issns = journals.issns;
 
 `ON` is like `WHERE`, it filters things out according to a test condition.  We use
 the `table.colname` format to tell the manager what column in which table we are
 referring to.
 
 Alternatively, we can use the word `USING`, as a short-hand.  In this case we are
-telling the manager that we want to combine `surveys` with `species` and that
-the common column is `species_id`.
+telling the manager that we want to combine `articles` with `journals` and that
+the common column is `issns`.
 
     SELECT *
-    FROM surveys
-    JOIN species
-    USING (species_id);
+    FROM articles
+    JOIN journals
+    USING (issns);
 
 
 We often won't want all of the fields from both tables, so anywhere we would
 have used a field name in a non-join query, we can use `table.colname`.
 
-For example, what if we wanted information on when individuals of each
-species were captured, but instead of their species ID we wanted their
-actual species names.
+For example, what if we wanted information on published articles in different
+journals, but instead of their ISSN we wanted the actual journal title.
 
-    SELECT surveys.year, surveys.month, surveys.day, species.genus, species.species
-    FROM surveys
-    JOIN species
-    ON surveys.species_id = species.species_id;
+    SELECT articles.issns, journal_title, title, first_author, citation_count, author_count, month, year
+    FROM articles
+    JOIN journals
+    ON articles.issns = journals.issns;
 
 > ### Challenge:
 >
@@ -51,14 +50,23 @@ actual species names.
 > of every individual captured at the site
 
 Joins can be combined with sorting, filtering, and aggregation.  So, if we
-wanted average mass of the individuals on each different type of treatment, we
+wanted average number of authors for articles on different journals, we
 could do something like
 
-    SELECT plots.plot_type, AVG(surveys.weight)
-    FROM surveys
-    JOIN plots
-    ON surveys.plot_id = plots.plot_id
-    GROUP BY plots.plot_type;
+    SELECT articles.issns, journal_title, ROUND(AVG(author_count), 2)
+    FROM articles
+    JOIN journals
+    ON articles.issns = journals.issns;
+    GROUP BY articles.issns;
+
+It is worth mentioning that you can join multiple tables. For example:
+
+    SELECT title, first_author, journal_title, language
+    FROM articles
+    JOIN journals
+    ON articles.issns = journals.issns
+    JOIN languages
+    ON languages.id = articles.languageid
 
 > ### Challenge:
 >
@@ -76,22 +84,22 @@ clearer we can use aliases to assign new names to things in the query.
 
 We can alias both table names:
 
-    SELECT surv.year, surv.month, surv.day, sp.genus, sp.species
-    FROM surveys AS surv
-    JOIN species AS sp
-    ON surv.species_id = sp.species_id;
+    SELECT ar.title, ar.first_author, jo.journal_title
+    FROM articles AS ar
+    JOIN journals  AS jo
+    ON ar.issns = jo.issns;
 
 And column names:
 
-    SELECT surv.year AS yr, surv.month AS mo, surv.day AS day, sp.genus AS gen, sp.species AS sp
-    FROM surveys AS surv
-    JOIN species AS sp
-    ON surv.species_id = sp.species_id;
+    SELECT ar.title AS title, ar.first_author AS author, jo.journal_title AS journal
+    FROM articles AS ar
+    JOIN journals  AS jo
+    ON ar.issns = jo.issns;
 
 The `AS` isn't technically required, so you could do
 
-    SELECT surv.year yr
-    FROM surveys surv;
+    SELECT a.title t
+    FROM articles a;
 
 but using `AS` is much clearer so it is good style to include it.
 
