@@ -38,8 +38,7 @@ you are analysing it. If the data is changed, a saved query can be re-run to ana
 
 SQL is optimised for handling large amounts of data. Using data types helps with quality control of entries - you
 will receive an error if you try to enter a word into a field that should contain a number. Understanding the nature
-of relational databases, and using SQL, will help you in using databases in programming languages.
-to do similar things using programming languages such as R or Python.
+of relational databases, and using SQL, will help you in using databases in programming languages and in doing similar things using programming languages such as R or Python.
 
 ## Why are Librarians well suited to SQL?
 Librarianship is about information management. We help sort and organise information and we help people find information. Most of us use mediated queries to help people find the information they need e.g. conducting a search via a library catalogue. With SQL, you can directly construct your database queries without the constraints (e.g. field name or search limitations) imposed by a mediated search interface. Librarians are good at searching information so don’t be afraid – constructing queries using SQL is simply a different and more direct way of finding information. 
