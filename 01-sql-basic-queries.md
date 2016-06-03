@@ -64,7 +64,8 @@ functions. For example, we could round the values to make them easier to read.
 
 > ## Challenge
 >
-> What would be a nice challenge ?
+> Write a query that returns the title, first_author, citation_count,
+> author_count, month and year
 
 ## Filtering
 
@@ -99,7 +100,8 @@ ISSNs codes `2076-0787` and `2077-1444`, we could combine the tests using OR:
 
 > ### Challenge
 >
-> What would be a nice challenge ?
+> Write a query that returns the title, first_author, issns, month and year
+> for all single author papers with more than 4 citations
 
 
 ## Building more complex queries
@@ -162,7 +164,9 @@ To truly be alphabetical, we might want to order by genus then species.
 
 > ### Challenge
 >
-> Think of nice challenges
+> Write a query that returns title, first_author, issns and citation_count from
+> the articles table, sorted with the most cited article at the top and
+> alphabetically
 
 
 ## Order of execution
@@ -192,6 +196,9 @@ we recommend to put each clause on its own line.
 > ### Challenge
 >
 > Let's try to combine what we've learned so far in a single
-> query.  Write a nice challenge!
+> query.  Using the articles table write a query to display the three date fields,
+> `issn`, and `citation_count`, for articles published after June, ordered
+> alphabetically by first author name. Write the query as a single line, then
+> put each clause on its own line, and see how more legible the query becomes!
 
 Previous: [SQL Introduction](00-sql-introduction.html) Next: [SQL Aggregation.](02-sql-aggregation.html)
