@@ -41,6 +41,9 @@ will receive an error if you try to enter a word into a field that should contai
 of relational databases, and using SQL, will help you in using databases in programming languages.
 to do similar things using programming languages such as R or Python.
 
+## Why are Librarians well suited to SQL?
+Librarianship is about information management. We help sort and organise information and we help people find information. Most of us use mediated queries to help people find the information they need e.g. conducting a search via a library catalogue. With SQL, you can directly construct your database queries without the constraints (e.g. field name or search limitations) imposed by a mediated search interface. Librarians are good at searching information so don’t be afraid – constructing queries using SQL is simply a different and more direct way of finding information. 
+
 ## Database Management Systems
 
 There are a number of different database management systems for working with
