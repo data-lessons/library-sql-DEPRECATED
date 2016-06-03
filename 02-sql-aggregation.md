@@ -10,22 +10,16 @@ minutes: 30
 Aggregation allows us to combine results by grouping records based on value and
 calculating combined values in groups.
 
-Let’s go to the surveys table and find out how many individuals there are.
+Let’s go to the articles table and find out how many entries there are.
 Using the wildcard simply counts the number of records (rows)
 
     SELECT COUNT(*)
-    FROM surveys;
+    FROM articles;
 
-We can also find out how much all of those individuals weigh.
+We can also find out how many authors have participated in these articles.
 
-    SELECT COUNT(*), SUM(weight)
-    FROM surveys;
-
-We can output this value in kilograms, rounded to 3 decimal
-places:
-
-    SELECT ROUND(SUM(weight)/1000.0, 3)
-    FROM surveys;
+    SELECT COUNT(*), SUM(author_count)
+    FROM articles;
 
 There are many other aggregate functions included in SQL including
 `MAX`, `MIN`, and `AVG`.
@@ -35,12 +29,12 @@ There are many other aggregate functions included in SQL including
 > Write a query that returns: total weight, average weight, and the min and max weights for all animals caught over the duration of the survey. Can you modify it so that it outputs these values only for weights between 5 and 10?
 
 
-Now, let's see how many individuals were counted in each species. We do this
+Now, let's see how many articles were published in each journal. We do this
 using a `GROUP BY` clause
 
-    SELECT species_id, COUNT(*)
-    FROM surveys
-    GROUP BY species_id;
+    SELECT issns, COUNT( * )
+    FROM articles
+    GROUP BY issns;
 
 `GROUP BY` tells SQL what field or fields we want to use to aggregate the data.
 If we want to group by multiple fields, we give `GROUP BY` a comma separated list.
@@ -62,25 +56,25 @@ filter the results according to some criteria. SQL offers a mechanism to
 filter the results based on aggregate functions, through the `HAVING` keyword.
 
 For example, we can adapt the last request we wrote to only return information
-about species with a count higher than 10:
+about articles with a 10 or more published articles:
 
-    SELECT species_id, COUNT(surveys.species_id)
-    FROM surveys
-    GROUP BY species_id
-    HAVING COUNT(surveys.species_id) > 10;
+    SELECT issns, COUNT( * )
+    FROM articles
+    GROUP BY issns
+    HAVING COUNT( * ) >= 10;
 
 The `HAVING` keyword works exactly like the `WHERE` keyword, but uses
 aggregate functions instead of database fields.
 
 If you use `AS` in your query to rename a column, `HAVING` can use this
 information to make the query more readable. For example, in the above
-query, we can call the `COUNT(surveys.species_id)` by another name, like
+query, we can call the `COUNT(*)` by another name, like
 `occurrences`. This can be written this way:
 
-    SELECT species_id, COUNT(surves.species_id) AS occurrences
-    FROM surveys
-    GROUP BY species_id
-    HAVING occurrences > 10;
+    SELECT issns, COUNT( * ) AS occurrences
+    FROM articles
+    GROUP BY issns
+    HAVING occurrences >= 10;
 
 Note that in both queries, `HAVING` comes *after* `GROUP BY`. One way to
 think about this is: the data are retrieved (`SELECT`), can be filtered
@@ -95,13 +89,13 @@ of these groups (`HAVING`).
 ## Ordering aggregated results.
 
 We can order the results of our aggregation by a specific column, including
-the aggregated column.  Let’s count the number of individuals of each
-species captured, ordered by the count
+the aggregated column.  Let’s count the number of articles published in each
+journal, ordered by the count
 
-    SELECT species_id, COUNT(*)
-    FROM surveys
-    GROUP BY species_id
-    ORDER BY COUNT(species_id);
+    SELECT issns, COUNT( * )
+    FROM articles
+    GROUP BY issns
+    ORDER BY COUNT( * ) DESC;
 
 
 ## Saving queries for future use
@@ -117,20 +111,20 @@ Creating a view from a query requires to add `CREATE VIEW viewname AS`
 before the query itself. For example, if we want to save the query giving
 the number of individuals in a view, we can write
 
-    CREATE VIEW species_count AS
-    SELECT species_id, COUNT(*)
-    FROM surveys
-    GROUP BY species_id;
+    CREATE VIEW journal_counts AS
+    SELECT issns, COUNT(*)
+    FROM articles
+    GROUP BY issns;
 
 Now, we will be able to access these results with a much shorter notation:
 
     SELECT *
-    FROM species_count;
+    FROM journal_counts;
 
 Assuming we do not need this view anymore, we can remove it from the database
 almost as we would a table:
 
-    DROP VIEW species_count;
+    DROP VIEW journal_counts;
 
 You can also add a view using *Create View* in the *View* menu and see the
 results in the *Views* tab just like a table
